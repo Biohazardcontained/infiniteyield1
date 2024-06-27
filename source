@@ -8916,7 +8916,7 @@ local walkto = false
 local waypointwalkto = false
 addcmd('walkto',{'follow'},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
-	for i,v in pairs(players)do
+	for i,v in pairs(players) do
 		if Players[v].Character ~= nil then
 			if speaker.Character:FindFirstChildOfClass('Humanoid') and speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart then
 				speaker.Character:FindFirstChildOfClass('Humanoid').Sit = false
@@ -8924,7 +8924,11 @@ addcmd('walkto',{'follow'},function(args, speaker)
 			end
 			walkto = true
 			repeat wait()
-				speaker.Character:FindFirstChildOfClass('Humanoid'):MoveTo(getRoot(Players[v].Character).Position)
+				local targetRoot = getRoot(Players[v].Character)
+				local targetPosition = targetRoot.Position
+				local offset = targetRoot.CFrame.LookVector * -1.25
+				local newPosition = targetPosition + offset
+				speaker.Character:FindFirstChildOfClass('Humanoid'):MoveTo(newPosition)
 			until Players[v].Character == nil or not getRoot(Players[v].Character) or walkto == false
 		end
 	end
