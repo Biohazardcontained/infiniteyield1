@@ -8926,7 +8926,7 @@ addcmd('walkto',{'follow'},function(args, speaker)
 			repeat wait()
 				local targetRoot = getRoot(Players[v].Character)
 				local targetPosition = targetRoot.Position
-				local offset = targetRoot.CFrame.LookVector * -1.25
+				local offset = targetRoot.CFrame.LookVector * -2.25
 				local newPosition = targetPosition + offset
 				speaker.Character:FindFirstChildOfClass('Humanoid'):MoveTo(newPosition)
 			until Players[v].Character == nil or not getRoot(Players[v].Character) or walkto == false
