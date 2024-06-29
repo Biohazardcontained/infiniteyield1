@@ -4568,6 +4568,10 @@ CMDs[#CMDs + 1] = {NAME = 'walkto / follow [player]', DESC = 'Follow a player'}
 CMDs[#CMDs + 1] = {NAME = 'pathfindwalkto / pathfindfollow [player]', DESC = 'Follow a player using pathfinding'}
 CMDs[#CMDs + 1] = {NAME = 'pathfindwalktowaypoint / pathfindwalktowp [waypoint]', DESC = 'Walk to a waypoint using pathfinding'}
 CMDs[#CMDs + 1] = {NAME = 'unwalkto / unfollow', DESC = 'Stops following a player'}
+CMDs[#CMDs + 1] = {NAME = 'unwedgeright / unwopr [name]', DESC = 'Stops wedging on the right of a player'}
+CMDs[#CMDs + 1] = {NAME = 'unwedgeleft / unwopl [name]', DESC = 'Stops wedging on the left of a player'}
+CMDs[#CMDs + 1] = {NAME = 'unstsright / unstsr [name]', DESC = 'Stops standing on the right of a player'}
+CMDs[#CMDs + 1] = {NAME = 'unstsleft / unstsl [name]', DESC = 'Stops standing on the left of a player'}
 CMDs[#CMDs + 1] = {NAME = 'stareat / stare [player]', DESC = 'Stare / look at a player'}
 CMDs[#CMDs + 1] = {NAME = 'unstareat / unstare [player]', DESC = 'Disables stareat'}
 CMDs[#CMDs + 1] = {NAME = 'rolewatch [group id] [role name]', DESC = 'Notify if someone from a watched group joins the server'}
@@ -8939,7 +8943,7 @@ addcmd('walkto',{'follow'},function(args, speaker)
 end)
 
 local stsright = false
-addcmd('stsrightright',{'follow'},function(args, speaker)
+addcmd('stsright',{'follow'},function(args, speaker)
     local players = getPlayer(args[1], speaker)
     for i,v in pairs(players) do
         if Players[v].Character ~= nil then
@@ -8994,7 +8998,7 @@ addcmd('wedgeright',{'follow'},function(args, speaker)
                 local targetRoot = getRoot(Players[v].Character)
                 local targetPosition = targetRoot.Position
                 local rightOffset = targetRoot.CFrame.RightVector * 3
-                local backOffset = targetRoot.CFrame.LookVector * -3
+                local backOffset = targetRoot.CFrame.LookVector * -2
                 local newPosition = targetPosition + rightOffset + backOffset
                 speaker.Character:FindFirstChildOfClass('Humanoid'):MoveTo(newPosition)
             until Players[v].Character == nil or not getRoot(Players[v].Character) or wedgeright == false
@@ -9016,7 +9020,7 @@ addcmd('wedgeleft',{'follow'},function(args, speaker)
                 local targetRoot = getRoot(Players[v].Character)
                 local targetPosition = targetRoot.Position
                 local leftOffset = targetRoot.CFrame.RightVector * -3
-                local backOffset = targetRoot.CFrame.LookVector * -3
+                local backOffset = targetRoot.CFrame.LookVector * -2
                 local newPosition = targetPosition + leftOffset + backOffset
                 speaker.Character:FindFirstChildOfClass('Humanoid'):MoveTo(newPosition)
             until Players[v].Character == nil or not getRoot(Players[v].Character) or wedgeleft == false
@@ -9131,6 +9135,22 @@ end)
 addcmd('unwalkto',{'nowalkto','unfollow','nofollow'},function(args, speaker)
 	walkto = false
 	waypointwalkto = false
+end)
+
+addcmd('unwedgeright',{'unwopr'},function(args, speaker)
+    wedgeright = false
+end)
+
+addcmd('unwedgeleft',{'unwopl'},function(args, speaker)
+    wedgeleft = false
+end)
+
+addcmd('unstsright',{'unstsr'},function(args, speaker)
+   stsright = false
+end)
+
+addcmd('unstsleft',{'unstsl'},function(args, speaker)
+    stsleft = false
 end)
 
 addcmd('freeze',{'fr'},function(args, speaker)
