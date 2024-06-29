@@ -4411,6 +4411,8 @@ CMDs[#CMDs + 1] = {NAME = 'hidewaypoints / hidewp', DESC = 'Hides shown waypoint
 CMDs[#CMDs + 1] = {NAME = 'waypoint / wp [name]', DESC = 'Teleports player to a waypoint'}
 CMDs[#CMDs + 1] = {NAME = 'tweenwaypoint / twp [name]', DESC = 'Tweens player to a waypoint'}
 CMDs[#CMDs + 1] = {NAME = 'walktowaypoint / wtwp [name]', DESC = 'Walks player to a waypoint'}
+CMDs[#CMDs + 1] = {NAME = 'wedgeright / wopr [name]', DESC = 'Wedges on the right of a player'}
+CMDs[#CMDs + 1] = {NAME = 'wedgeleft / wopl [name]', DESC = 'Wedges on the left of a player'}
 CMDs[#CMDs + 1] = {NAME = 'deletewaypoint / dwp [name]', DESC = 'Deletes a waypoint'}
 CMDs[#CMDs + 1] = {NAME = 'clearwaypoints / cwp', DESC = 'Clears all waypoints'}
 CMDs[#CMDs + 1] = {NAME = 'cleargamewaypoints / cgamewp', DESC = 'Clears all waypoints for the game you are in'}
@@ -8932,6 +8934,48 @@ addcmd('walkto',{'follow'},function(args, speaker)
 			until Players[v].Character == nil or not getRoot(Players[v].Character) or walkto == false
 		end
 	end
+end)
+
+local wedgeright = false
+addcmd('wedgeright',{'follow'},function(args, speaker)
+    local players = getPlayer(args[1], speaker)
+    for i,v in pairs(players) do
+        if Players[v].Character ~= nil then
+            if speaker.Character:FindFirstChildOfClass('Humanoid') and speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart then
+                speaker.Character:FindFirstChildOfClass('Humanoid').Sit = false
+                wait(.1)
+            end
+            wedgeright = true
+            repeat wait()
+                local targetRoot = getRoot(Players[v].Character)
+                local targetPosition = targetRoot.Position
+                local offset = targetRoot.CFrame.RightVector * 3  -- Change to RightVector and set offset to 3 studs
+                local newPosition = targetPosition + offset
+                speaker.Character:FindFirstChildOfClass('Humanoid'):MoveTo(newPosition)
+            until Players[v].Character == nil or not getRoot(Players[v].Character) or wedgeright == false
+        end
+    end
+end)
+
+local wedgeleft = false
+addcmd('wedgeleft',{'follow'},function(args, speaker)
+    local players = getPlayer(args[1], speaker)
+    for i,v in pairs(players) do
+        if Players[v].Character ~= nil then
+            if speaker.Character:FindFirstChildOfClass('Humanoid') and speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart then
+                speaker.Character:FindFirstChildOfClass('Humanoid').Sit = false
+                wait(.1)
+            end
+            wedgeleft = true
+            repeat wait()
+                local targetRoot = getRoot(Players[v].Character)
+                local targetPosition = targetRoot.Position
+                local offset = targetRoot.CFrame.LeftVector * 3
+                local newPosition = targetPosition + offset
+                speaker.Character:FindFirstChildOfClass('Humanoid'):MoveTo(newPosition)
+            until Players[v].Character == nil or not getRoot(Players[v].Character) or wedgeleft == false
+        end
+    end
 end)
 
 addcmd('pathfindwalkto',{'pathfindfollow'},function(args, speaker)
