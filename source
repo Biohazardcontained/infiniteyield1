@@ -4568,10 +4568,8 @@ CMDs[#CMDs + 1] = {NAME = 'walkto / follow [player]', DESC = 'Follow a player'}
 CMDs[#CMDs + 1] = {NAME = 'pathfindwalkto / pathfindfollow [player]', DESC = 'Follow a player using pathfinding'}
 CMDs[#CMDs + 1] = {NAME = 'pathfindwalktowaypoint / pathfindwalktowp [waypoint]', DESC = 'Walk to a waypoint using pathfinding'}
 CMDs[#CMDs + 1] = {NAME = 'unwalkto / unfollow', DESC = 'Stops following a player'}
-CMDs[#CMDs + 1] = {NAME = 'unwedgeright / unwopr [name]', DESC = 'Stops wedging on the right of a player'}
-CMDs[#CMDs + 1] = {NAME = 'unwedgeleft / unwopl [name]', DESC = 'Stops wedging on the left of a player'}
-CMDs[#CMDs + 1] = {NAME = 'unstsright / unstsr [name]', DESC = 'Stops standing on the right of a player'}
-CMDs[#CMDs + 1] = {NAME = 'unstsleft / unstsl [name]', DESC = 'Stops standing on the left of a player'}
+CMDs[#CMDs + 1] = {NAME = 'unwedge / unwop [name]', DESC = 'Stops wedging on a player'}
+CMDs[#CMDs + 1] = {NAME = 'unsts [name]', DESC = 'Stops STS'ing on a player'}
 CMDs[#CMDs + 1] = {NAME = 'stareat / stare [player]', DESC = 'Stare / look at a player'}
 CMDs[#CMDs + 1] = {NAME = 'unstareat / unstare [player]', DESC = 'Disables stareat'}
 CMDs[#CMDs + 1] = {NAME = 'rolewatch [group id] [role name]', DESC = 'Notify if someone from a watched group joins the server'}
@@ -8943,7 +8941,7 @@ addcmd('walkto',{'follow'},function(args, speaker)
 end)
 
 local stsright = false
-addcmd('stsright',{'follow'},function(args, speaker)
+addcmd('stsright',{'stsr'},function(args, speaker)
     local players = getPlayer(args[1], speaker)
     for i,v in pairs(players) do
         if Players[v].Character ~= nil then
@@ -8964,7 +8962,7 @@ addcmd('stsright',{'follow'},function(args, speaker)
 end)
 
 local stsleft = false
-addcmd('stsleft',{'follow'},function(args, speaker)
+addcmd('stsleft',{'stsl'},function(args, speaker)
     local players = getPlayer(args[1], speaker)
     for i,v in pairs(players) do
         if Players[v].Character ~= nil then
@@ -8985,7 +8983,7 @@ addcmd('stsleft',{'follow'},function(args, speaker)
 end)
 
 local wedgeright = false
-addcmd('wedgeright',{'follow'},function(args, speaker)
+addcmd('wedgeright',{'wopr'},function(args, speaker)
     local players = getPlayer(args[1], speaker)
     for i,v in pairs(players) do
         if Players[v].Character ~= nil then
@@ -9007,7 +9005,7 @@ addcmd('wedgeright',{'follow'},function(args, speaker)
 end)
 
 local wedgeleft = false
-addcmd('wedgeleft',{'follow'},function(args, speaker)
+addcmd('wedgeleft',{'wopl'},function(args, speaker)
     local players = getPlayer(args[1], speaker)
     for i,v in pairs(players) do
         if Players[v].Character ~= nil then
@@ -9137,20 +9135,14 @@ addcmd('unwalkto',{'nowalkto','unfollow','nofollow'},function(args, speaker)
 	waypointwalkto = false
 end)
 
-addcmd('unwedgeright',{'unwopr'},function(args, speaker)
+addcmd('unwedge',{'unwop'},function(args, speaker)
     wedgeright = false
-end)
-
-addcmd('unwedgeleft',{'unwopl'},function(args, speaker)
     wedgeleft = false
 end)
 
-addcmd('unstsright',{'unstsr'},function(args, speaker)
-   stsright = false
-end)
-
-addcmd('unstsleft',{'unstsl'},function(args, speaker)
+addcmd('unsts'},function(args, speaker)
     stsleft = false
+    stsright = false
 end)
 
 addcmd('freeze',{'fr'},function(args, speaker)
