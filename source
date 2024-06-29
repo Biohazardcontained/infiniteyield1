@@ -8953,7 +8953,7 @@ addcmd('stsright',{'stsr'},function(args, speaker)
             repeat wait()
                 local targetRoot = getRoot(Players[v].Character)
                 local targetPosition = targetRoot.Position
-                local offset = targetRoot.CFrame.RightVector * 7
+                local offset = targetRoot.CFrame.RightVector * 5
                 local newPosition = targetPosition + offset
                 speaker.Character:FindFirstChildOfClass('Humanoid'):MoveTo(newPosition)
             until Players[v].Character == nil or not getRoot(Players[v].Character) or stsright == false
@@ -8974,7 +8974,7 @@ addcmd('stsleft',{'stsl'},function(args, speaker)
             repeat wait()
                 local targetRoot = getRoot(Players[v].Character)
                 local targetPosition = targetRoot.Position
-                local offset = targetRoot.CFrame.LeftVector * 7
+                local offset = targetRoot.CFrame.RightVector * -5
                 local newPosition = targetPosition + offset
                 speaker.Character:FindFirstChildOfClass('Humanoid'):MoveTo(newPosition)
             until Players[v].Character == nil or not getRoot(Players[v].Character) or stsleft == false
@@ -9017,9 +9017,9 @@ addcmd('wedgeleft',{'wopl'},function(args, speaker)
             repeat wait()
                 local targetRoot = getRoot(Players[v].Character)
                 local targetPosition = targetRoot.Position
-                local leftOffset = targetRoot.CFrame.LeftVector * 3
+                local rightOffset = targetRoot.CFrame.RightVector * -3
                 local backOffset = targetRoot.CFrame.LookVector * -2
-                local newPosition = targetPosition + leftOffset + backOffset
+                local newPosition = targetPosition + rightOffset + backOffset
                 speaker.Character:FindFirstChildOfClass('Humanoid'):MoveTo(newPosition)
             until Players[v].Character == nil or not getRoot(Players[v].Character) or wedgeleft == false
         end
